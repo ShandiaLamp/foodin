@@ -71,4 +71,12 @@ class UserService
         DB::commit();
         return $userToken;
     }
+
+    public function existsTokenByUserId($userId, $token): bool
+    {
+        return UserToken::where('user_id', $userId)
+            ->where('token', $token)
+            ->where('expire_at', '>', date('Y-m-d H:i:s'))
+            ->exists();
+    }
 }

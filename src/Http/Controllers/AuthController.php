@@ -36,6 +36,18 @@ class AuthController
             'username'  => $user->username,
             'realName'  => $user->real_name ?? '用户',
             'roles' => [],
-        ]);
+        ], '登录成功');
+    }
+
+    public function user(Request $request)
+    {
+        $user = auth('admin')->user();
+        return AdminResource::success([
+            'homePath'  => '/workspace',
+            'id'    =>  $user->id,
+            'username'  => $user->username,
+            'realName'  => $user->real_name ?? '用户',
+            'roles' => [],
+        ], '获取成功');
     }
 }
