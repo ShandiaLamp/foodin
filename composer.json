@@ -9,12 +9,6 @@
             "email": "438132594@qq.com"
         }
     ],
-    "autoload": {
-        "psr-4": {
-            "Shandialamp\\Foodin\\": "src/",
-            "Shandialamp\\Foodin\\Database\\Seeders\\": "database/seeders/"
-        }
-    },
     "require": {
         "php": "^8.2",
         "illuminate/support": "^12.0",
@@ -24,15 +18,21 @@
         "tymon/jwt-auth": "^2.2"
 
     },
+    "require-dev": {
+        "phpunit/phpunit": "^12.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Shandialamp\\Foodin\\": "src/",
+            "Shandialamp\\Foodin\\Tests\\": "tests/",
+            "Shandialamp\\Foodin\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [
                 "Shandialamp\\Foodin\\FoodinServiceProvider"
             ]
         }
-    },
-    "require-dev": {
-        "orchestra/testbench": "^10.6",
-        "phpunit/phpunit": "^12.3"
     }
 }

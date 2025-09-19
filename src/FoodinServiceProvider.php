@@ -4,6 +4,7 @@ namespace Shandialamp\Foodin;
 
 use Illuminate\Support\ServiceProvider;
 use Shandialamp\Foodin\Console\Commands\InstallCommand;
+use Shandialamp\Foodin\Http\Middlewares\AdminJwtMiddleware;
 
 class FoodinServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,9 @@ class FoodinServiceProvider extends ServiceProvider
             ], 'foodin-views');
         }
         $this->loadRoutesFrom(__DIR__.'/../routes/admin.php');
+
+        $router = $this->app['router'];
+        $router->aliasMiddleware('admin.jwt', AdminJwtMiddleware::class);
     }
 
     public function register(): void
