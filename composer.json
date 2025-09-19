@@ -1,0 +1,38 @@
+{
+    "name": "shandialamp/foodin",
+    "keywords": ["laravel", "admin"],
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "lkg",
+            "email": "438132594@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Shandialamp\\Foodin\\": "src/",
+            "Shandialamp\\Foodin\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^12.0",
+        "illuminate/console": "^12.0",
+        "illuminate/database": "^12.0",
+        "illuminate/auth": "^12.0",
+        "tymon/jwt-auth": "^2.2"
+
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Shandialamp\\Foodin\\FoodinServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^10.6",
+        "phpunit/phpunit": "^12.3"
+    }
+}
