@@ -3,12 +3,14 @@
 namespace Shandialamp\Foodin\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Shandialamp\Foodin\Services\MenuService;
 use Shandialamp\Foodin\Services\UserService;
 
 
 class InitSeeder extends Seeder
 {
     protected UserService $userService;
+    protected MenuService $menuService;
 
     public function __construct()
     {

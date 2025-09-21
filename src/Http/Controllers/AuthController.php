@@ -6,15 +6,18 @@ use Illuminate\Http\Request;
 use Response;
 use Shandialamp\Foodin\Exceptions\ServiceException;
 use Shandialamp\Foodin\Http\Resources\AdminResource;
+use Shandialamp\Foodin\Services\MenuService;
 use Shandialamp\Foodin\Services\UserService;
 
 class AuthController
 {
     protected UserService $userService;
+    protected MenuService $menuService;
 
     public function __construct()
     {
         $this->userService = new UserService();
+        $this->menuService = new MenuService();
     }
 
     public function login(Request $request)
@@ -49,5 +52,11 @@ class AuthController
             'realName'  => $user->real_name ?? '用户',
             'roles' => [],
         ], '获取成功');
+    }
+
+    public function menus(Request $request)
+    {
+        $user = auth('admin')->user();
+        return AdminResource::success($this->menuService->getAllMenusByUser($user));
     }
 }

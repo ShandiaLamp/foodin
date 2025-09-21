@@ -9,6 +9,7 @@ Route::prefix('/api/admin')
         Route::post('/auth/login', [AuthController::class, 'login']);
         Route::middleware('admin.jwt')->group(function () {
             Route::get('/auth/user', [AuthController::class, 'user']);
+            Route::get('/auth/menus', [AuthController::class, 'menus']);
         });
     });
 
