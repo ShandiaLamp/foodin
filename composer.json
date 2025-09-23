@@ -25,7 +25,8 @@
         "psr-4": {
             "Shandialamp\\Foodin\\": "src/",
             "Shandialamp\\Foodin\\Tests\\": "tests/",
-            "Shandialamp\\Foodin\\Database\\Seeders\\": "database/seeders/"
+            "Shandialamp\\Foodin\\Database\\Seeders\\": "database/seeders/",
+            "Shandialamp\\Foodin\\Database\\Factories\\": "database/factories/"
         }
     },
     "extra": {

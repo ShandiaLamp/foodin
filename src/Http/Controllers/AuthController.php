@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Response;
 use Shandialamp\Foodin\Exceptions\ServiceException;
 use Shandialamp\Foodin\Http\Resources\AdminResource;
+use Shandialamp\Foodin\Models\UserToken;
 use Shandialamp\Foodin\Services\MenuService;
 use Shandialamp\Foodin\Services\UserService;
 
@@ -40,6 +41,29 @@ class AuthController
             'realName'  => $user->real_name ?? '用户',
             'roles' => [],
         ], '登录成功');
+    }
+
+    public function logout(Request $request)
+    {
+        $authorization = $request->header('Authorization');
+        if ($authorization) {
+            $authorizationArr = explode(' ', $authorization);
+            if (count($authorizationArr) == 2) {
+                $token = $authorizationArr[1];
+                $this->userService->logout($token);
+            }
+        }
+        return AdminResource::success(null, '登出成功');
+    }
+
+    public function refresh(Request $request)
+    {
+        $user = auth('admin')->user();
+        $token = $this->userService->refreshToken($user, $request->get('scope', 'web'));
+
+        return AdminResource::success([
+            'data' => $token,
+        ], '刷新成功');
     }
 
     public function user(Request $request)
