@@ -77,6 +77,21 @@ class UserService
         return UserToken::where('token', $token)->delete();
     }
 
+    public function refreshToken(User $user, $scope = 'web')
+    {
+        UserToken::where('user_id', $user->id)->where('scope', $scope)->delete();
+        $token = Auth::guard('admin')->login($user);
+
+        $ttlMinutes = Auth::guard('admin')->factory()->getTTL();
+        $expiresAt = now()->addMinutes($ttlMinutes);
+        $user->tokens()->create([
+            'token' => $token,
+            'scope' => $scope,
+            'expire_at' => $expiresAt,
+        ]);
+        return $token;
+    }
+
     public function existsTokenByUserId($userId, $token): bool
     {
         return UserToken::where('user_id', $userId)

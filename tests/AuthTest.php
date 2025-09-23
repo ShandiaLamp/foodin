@@ -63,4 +63,19 @@ class AuthTest extends TestCase
         
         $this->assertNull(UserToken::find($userToken->id));
     }
+
+    public function test_refresh_success()
+    {
+        /**
+         * @var UserToken
+         */
+        $response = $this->mockLogin()->postJson(route('admin.auth.refresh'), [
+            'scope' => $this->mockUserToken->scope,
+        ]);
+        $response->assertStatus(200);
+        $data = $response->json();
+        $this->assertNull( $data['error']);
+        
+        $this->assertNull(UserToken::find($this->mockUserToken->id));
+    }
 }

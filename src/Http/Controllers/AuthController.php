@@ -50,11 +50,20 @@ class AuthController
             $authorizationArr = explode(' ', $authorization);
             if (count($authorizationArr) == 2) {
                 $token = $authorizationArr[1];
-                var_dump($token);
                 $this->userService->logout($token);
             }
         }
         return AdminResource::success(null, '登出成功');
+    }
+
+    public function refresh(Request $request)
+    {
+        $user = auth('admin')->user();
+        $token = $this->userService->refreshToken($user, $request->get('scope', 'web'));
+
+        return AdminResource::success([
+            'data' => $token,
+        ], '刷新成功');
     }
 
     public function user(Request $request)

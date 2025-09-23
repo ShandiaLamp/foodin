@@ -13,12 +13,14 @@ class TestCase extends BaseTestCase
 {
     use DatabaseTransactions;
 
+    protected UserToken $mockUserToken;
+
 
     protected function mockLogin()
     {
         $user = User::first();
         $token = JWTAuth::fromUser($user);
-        $user->tokens()->create([
+        $this->mockUserToken = $user->tokens()->create([
             'token' => $token,
             'scope' => 'test',
             'expire_at' => Carbon::now()->addDay()->format('Y-m-d H:i:s'),
