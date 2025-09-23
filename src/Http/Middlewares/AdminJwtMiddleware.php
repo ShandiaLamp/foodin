@@ -26,6 +26,9 @@ class AdminJwtMiddleware
             
             $token = JWTAuth::getToken();
             $user = Auth::guard('admin')->setToken($token)->user();
+            if (!$user) {
+                return AdminResource::error('凭证不存在', 401, '凭证不存在', null, 401);
+            }
             if (!$this->userService->existsTokenByUserId($user->id, $token)) {
                 return AdminResource::error('凭证不存在', 401, '凭证不存在', null, 401);
             }
