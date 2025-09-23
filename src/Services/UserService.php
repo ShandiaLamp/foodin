@@ -72,6 +72,11 @@ class UserService
         return $userToken;
     }
 
+    public function logout($token)
+    {
+        return UserToken::where('token', $token)->delete();
+    }
+
     public function existsTokenByUserId($userId, $token): bool
     {
         return UserToken::where('user_id', $userId)
